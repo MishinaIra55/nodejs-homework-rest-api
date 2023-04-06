@@ -21,7 +21,7 @@ const login = async (req, res) => {
                 });
     }
     if (!user.verify) {
-        res.status(400).json({message: "Email is not verify"});
+        return res.status(400).json({message: "Email is not verify"});
     }
 
     const payload = {
