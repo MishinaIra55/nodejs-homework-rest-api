@@ -1,10 +1,10 @@
 const {User} = require("../../models");
 const {sendEmail} = require("../../helpers");
 
-const writeVerifyEmail = async (req,res) => {
+const writeVerifyEmail = async (req, res) => {
     const {email} = req.body;
     const user = await User.findOne({email});
-    if(!user) {
+    if (!user) {
         res.status(400).json({message: "User not found"});
     }
     if (user.verify) {
@@ -12,8 +12,8 @@ const writeVerifyEmail = async (req,res) => {
     }
     const mail = {
         to: email,
-        subject:"Confirm you email",
-        html:`<a target="_blank" href="http://localhost:3000/api/users/verify/${user.verificationToken}">Confirm email</a>`
+        subject: "Confirm you email",
+        html: `<a target="_blank" href="http://localhost:3000/api/users/verify/${user.verificationToken}">Confirm email</a>`
     };
     await sendEmail(mail);
     res.status(200).json({message: "Verification email send"});

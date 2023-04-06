@@ -22,14 +22,14 @@ const register = async (req, res) => {
     const verificationToken = uuidv4();
     const avatarURL = gravatar.url(email);
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-     await User.create({email,password: hashPassword,avatarURL, verificationToken});
+    await User.create({email,password: hashPassword,avatarURL, verificationToken});
 
-     const mail = {
-         to: email,
-         subject:"Confirm you email",
-         html:`<a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}">Confirm email</a>`
-     };
-     await sendEmail(mail);
+ const mail = {
+     to: email,
+     subject: "Confirm you email",
+     html:`<a target="_blank" href="http://localhost:3000/api/users/verify/${verificationToken}">Confirm email</a>`
+ };
+ await sendEmail(mail);
 
     res.status(201).json({
         user:{

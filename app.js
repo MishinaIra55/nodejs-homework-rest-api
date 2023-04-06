@@ -7,9 +7,8 @@ const usersRouter = require('./routes/api/users');
 const currentRouter = require("./routes/api/curentuser");
 
 
-const  dotenv = require('dotenv');
+const dotenv = require('dotenv');
 dotenv.config();
-
 
 
 const app = express()
@@ -24,9 +23,7 @@ app.use(express.static("public"))
 
 app.use('/api/contacts', contactsRouter);
 app.use('/api/users', usersRouter);
-app.use("/api/users",currentRouter);
-
-
+app.use("/api/users", currentRouter);
 
 
 app.use((err, req, res, next) => {
@@ -42,7 +39,7 @@ app.use((err, req, res, next) => {
 })
 
 app.use((req, res) => {
-    res.status(404).json({ message: 'Not found' })
+    res.status(404).json({message: 'Not found'})
 })
 
 
