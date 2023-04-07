@@ -33,6 +33,15 @@ const userSchema = Schema({
         required: true,
     },
 
+    verify: {
+        type: Boolean,
+        default: false,
+    },
+    verificationToken: {
+        type: String,
+        required: [true, 'Verify token is required'],
+    },
+
 }, {versionKey: false, timestamps: true});
 
 const joiSchema = Joi.object({
@@ -40,6 +49,10 @@ const joiSchema = Joi.object({
     email: Joi.string().required()
 
 });
+
+const verifyEmailSchema = Joi.object({
+    email: Joi.string().required()
+})
 
 userSchema.methods.comparePassword = function (password){
     return bcrypt.compareSync(password, this.password);
@@ -49,5 +62,6 @@ const User = model("user", userSchema);
 
 module.exports ={
     User,
-    joiSchema
+    joiSchema,
+    verifyEmailSchema
 }
